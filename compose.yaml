@@ -1,0 +1,10 @@
+services:
+  spring-jni:
+    image: 'angelcuero/discretas-jni:latest'
+    ports:
+      - '8083:8080'
+    networks:
+      - red-backend-app
+networks:
+  red-backend-app:
+    driver: bridge
