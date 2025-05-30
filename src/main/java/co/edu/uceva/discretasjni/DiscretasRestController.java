@@ -3,37 +3,36 @@ package co.edu.uceva.discretasjni;
 import discretasjni.lib.JavaDiscretas;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/discretas")
+@RequestMapping("/conjuntos")
 public class DiscretasRestController {
-
-    private final JavaDiscretas service = new JavaDiscretas();
+    JavaDiscretas lib = new JavaDiscretas();
 
     @PostMapping("/union")
-    public int[] union(@RequestBody Map<String,int[]> payload) {
-        return service.union(payload.get("a"), payload.get("b"));
+    public List<Integer> union(@RequestBody OperacionDTO dto) {
+        return Arrays.stream(lib.union(dto.getA(), dto.getB())).boxed().toList();
     }
 
-    @PostMapping("/intersection")
-    public int[] intersection(@RequestBody Map<String,int[]> payload) {
-        return service.intersection(payload.get("a"), payload.get("b"));
+    @PostMapping("/interseccion")
+    public List<Integer> interseccion(@RequestBody OperacionDTO dto) {
+        return Arrays.stream(lib.interseccion(dto.getA(), dto.getB())).boxed().toList();
     }
 
-    @PostMapping("/difference")
-    public int[] difference(@RequestBody Map<String,int[]> payload) {
-        return service.difference(payload.get("a"), payload.get("b"));
+    @PostMapping("/diferencia")
+    public List<Integer> diferencia(@RequestBody OperacionDTO dto) {
+        return Arrays.stream(lib.diferencia(dto.getA(), dto.getB())).boxed().toList();
     }
 
-    @PostMapping("/symdiff")
-    public int[] symmetricDifference(@RequestBody Map<String,int[]> payload) {
-        return service.symmetricDifference(payload.get("a"), payload.get("b"));
+    @PostMapping("/diferencia-simetrica")
+    public List<Integer> diferenciaSimetrica(@RequestBody OperacionDTO dto) {
+        return Arrays.stream(lib.diferenciaSimetrica(dto.getA(), dto.getB())).boxed().toList();
     }
 
-    @PostMapping("/complement")
-    public int[] complement(@RequestBody Map<String,int[]> payload) {
-        return service.complement(payload.get("universal"), payload.get("a"));
+    @PostMapping("/complemento")
+    public List<Integer> complemento(@RequestBody OperacionDTO dto) {
+        return Arrays.stream(lib.complemento(dto.getA(), dto.getB())).boxed().toList();
     }
 }
